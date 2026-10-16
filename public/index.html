@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="InventoryHub inventory management dashboard">
+  <title>InventoryHub | Inventory Management</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#">
+      <span class="brand-icon">I</span>
+      <span>Inventory<span class="brand-light">Hub</span></span>
+    </a>
+
+    <p class="nav-heading">WORKSPACE</p>
+    <a class="nav-link active" href="#dashboard">▦ <span>Dashboard</span></a>
+    <a class="nav-link" href="#inventory">▤ <span>Inventory</span></a>
+
+    <div class="sidebar-bottom">
+      <div class="profile-avatar">IH</div>
+      <div>
+        <strong>Inventory Admin</strong>
+        <small>Workspace</small>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content" id="dashboard">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">INVENTORY MANAGEMENT</p>
+        <h1>Dashboard</h1>
+        <p class="subtitle">Monitor your products and stock levels.</p>
+      </div>
+      <button class="primary-button" id="add-product-btn">+ Add product</button>
+    </header>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section class="stats-grid" aria-label="Inventory summary">
+      <article class="stat-card">
+        <div class="stat-top"><span>Total products</span><span class="stat-icon purple">▤</span></div>
+        <p class="stat-number" id="total-products">—</p>
+        <p class="stat-caption">Products in your inventory</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Total units in stock</span><span class="stat-icon blue">▦</span></div>
+        <p class="stat-number" id="total-units">—</p>
+        <p class="stat-caption">Across all products</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Inventory value</span><span class="stat-icon green">₨</span></div>
+        <p class="stat-number" id="inventory-value">—</p>
+        <p class="stat-caption">Based on price × stock</p>
+      </article>
+      <article class="stat-card">
+        <div class="stat-top"><span>Low stock</span><span class="stat-icon orange">!</span></div>
+        <p class="stat-number" id="low-stock">—</p>
+        <p class="stat-caption">Products with fewer than 5 units</p>
+      </article>
+    </section>
+
+    <section class="inventory-panel" id="inventory">
+      <div class="panel-heading">
+        <div>
+          <h2>Product inventory</h2>
+          <p>View and manage your stock in one place.</p>
+        </div>
+        <span class="count-badge" id="product-count">Loading...</span>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Search products or categories..." aria-label="Search products">
+        </label>
+        <button class="secondary-button" id="refresh-btn">↻ Refresh</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>PRODUCT</th>
+              <th>CATEGORY</th>
+              <th>UNIT PRICE</th>
+              <th>STOCK</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="product-table-body">
+            <tr><td colspan="6" class="empty-cell">Loading inventory...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer" id="table-footer">Connecting to inventory API...</div>
+    </section>
+
+    <footer class="page-footer">InventoryHub <span>·</span> Full-stack inventory management project</footer>
+  </main>
+
+  <dialog id="product-dialog">
+    <form id="product-form">
+      <div class="dialog-heading">
+        <div>
+          <h2 id="dialog-title">Add product</h2>
+          <p>Enter the product details below.</p>
+        </div>
+        <button type="button" class="close-button" id="close-dialog" aria-label="Close">×</button>
+      </div>
+
+      <input type="hidden" id="product-id">
+
+      <label for="product-name">Product name</label>
+      <input id="product-name" name="name" required maxlength="100" placeholder="e.g. Wireless Mouse">
+
+      <label for="product-category">Category</label>
+      <input id="product-category" name="category" required maxlength="60" placeholder="e.g. Electronics">
+
+      <div class="form-row">
+        <div>
+          <label for="product-price">Unit price (PKR)</label>
+          <input id="product-price" name="price" type="number" min="0" step="0.01" required>
+        </div>
+        <div>
+          <label for="product-stock">Stock quantity</label>
+          <input id="product-stock" name="stock" type="number" min="0" step="1" required>
+        </div>
+      </div>
+
+      <p id="form-error" class="form-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-button" id="cancel-dialog">Cancel</button>
+        <button type="submit" class="primary-button" id="save-product-btn">Save product</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+{
+  "name": "inventoryhub",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "InventoryHub full-stack inventory management application",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
